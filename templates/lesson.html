@@ -55,7 +55,7 @@
         {% if lesson.examples %}
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0"><i data-feather="lightbulb"></i> Examples</h5>
+                    <h5 class="mb-0"><i data-feather="info"></i> Examples</h5>
                 </div>
                 <div class="card-body">
                     {% for example in lesson.examples %}
@@ -127,7 +127,7 @@
             {% set minigame = lesson.minigame %}
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0"><i data-feather="gamepad-2"></i> {{ minigame.title }}</h5>
+                    <h5 class="mb-0"><i data-feather="play"></i> {{ minigame.title }}</h5>
                 </div>
                 <div class="card-body">
                     {% if minigame_result %}

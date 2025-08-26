@@ -1,0 +1,55 @@
+{
+  "slug": "understanding-arguments",
+  "title": "Understanding Arguments",
+  "summary": "Learn to identify, analyze, and construct logical arguments in everyday reasoning.",
+  "order": 1,
+  "lessons": [
+    {
+      "id": "what-is-an-argument",
+      "title": "What is an Argument?",
+      "key_ideas": [
+        "Arguments have premises and conclusions",
+        "Not all statements are arguments",
+        "Arguments aim to persuade through reasoning",
+        "Good arguments provide evidence for their claims"
+      ],
+      "examples": [
+        "Argument: 'It's raining outside, so you should bring an umbrella.'",
+        "Not an argument: 'I love pizza.' (just a statement of preference)",
+        "Argument: 'Students who study regularly perform better on tests. You want good grades, so you should study regularly.'"
+      ],
+      "quick_checks": [
+        {
+          "question": "Which of these is an argument?",
+          "choices": [
+            "The weather is nice today.",
+            "Since it's sunny, we should go to the park.",
+            "I really enjoy reading books."
+          ],
+          "answer_index": 1,
+          "feedback": [
+            "This is just a statement about the weather, not an argument.",
+            "Correct! This gives a reason (sunny weather) for a conclusion (should go to park).",
+            "This is just a personal preference, not an argument."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Spot the Argument",
+        "prompt": "Look at this social media post: 'Everyone should vote because democracy depends on participation.' Is this an argument?",
+        "options": ["Yes, it's an argument", "No, it's just an opinion"],
+        "correct_option": "Yes, it's an argument",
+        "explanation": "This is an argument because it provides a reason (democracy depends on participation) to support a conclusion (everyone should vote)."
+      }
+    }
+  ],
+  "creator_challenge": {
+    "title": "Build Your Argument Detector",
+    "instructions": "Think of a recent conversation or social media post where someone was trying to convince you of something. Write a short analysis identifying: 1) What they wanted you to believe (conclusion), 2) What reasons they gave (premises), and 3) Whether you found their reasoning convincing and why."
+  },
+  "resources": [
+    {"label": "Stanford Encyclopedia: Argument", "url": "https://plato.stanford.edu/entries/argument/"},
+    {"label": "Critical Thinking Web", "url": "https://www.criticalthinking.org/"}
+  ]
+}

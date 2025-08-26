@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}{{ perspective.title }} - Phronisis{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">{{ perspective.title }}</li>
+            </ol>
+        </nav>
+
+        <div class="mb-4">
+            <h1>{{ perspective.title }}</h1>
+            <p class="lead text-muted">{{ perspective.summary }}</p>
+        </div>
+
+        <h2 class="mb-3">Lessons</h2>
+        
+        {% if perspective.lessons %}
+            <div class="row">
+                {% for lesson in perspective.lessons %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title">{{ lesson.title }}</h5>
+                                {% if lesson.status == 'completed' %}
+                                    <span class="badge bg-success">
+                                        <i data-feather="check-circle"></i> Complete
+                                    </span>
+                                {% elif lesson.status == 'started' %}
+                                    <span class="badge bg-warning">
+                                        <i data-feather="play-circle"></i> In Progress
+                                    </span>
+                                {% else %}
+                                    <span class="badge bg-secondary">
+                                        <i data-feather="circle"></i> Not Started
+                                    </span>
+                                {% endif %}
+                            </div>
+                            
+                            {% if lesson.key_ideas %}
+                                <div class="mb-3">
+                                    <h6 class="text-muted">Key Ideas:</h6>
+                                    <ul class="small text-muted">
+                                        {% for idea in lesson.key_ideas[:2] %}
+                                            <li>{{ idea }}</li>
+                                        {% endfor %}
+                                        {% if lesson.key_ideas|length > 2 %}
+                                            <li><em>and {{ lesson.key_ideas|length - 2 }} more...</em></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                            
+                            <div class="d-flex gap-2">
+                                <a href="{{ url_for('lesson_detail', slug=perspective.slug, lesson_id=lesson.id) }}" 
+                                   class="btn btn-primary btn-sm">
+                                    <i data-feather="{% if lesson.status == 'not_started' %}play{% else %}book-open{% endif %}"></i>
+                                    {% if lesson.status == 'not_started' %}Start{% else %}Continue{% endif %}
+                                </a>
+                                
+                                {% if lesson.score %}
+                                    <span class="badge bg-info align-self-center">
+                                        Score: {{ lesson.score }}%
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if perspective.creator_challenge %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i data-feather="edit"></i> Creator Challenge
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <h6>{{ perspective.creator_challenge.title }}</h6>
+                    <p class="text-muted">{{ perspective.creator_challenge.instructions }}</p>
+                    <a href="{{ url_for('creator_challenge', slug=perspective.slug) }}" 
+                       class="btn btn-outline-primary">
+                        <i data-feather="edit"></i> Submit Your Work
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="col-lg-4">
+        {% if perspective.resources %}
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i data-feather="external-link"></i> Resources</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        {% for resource in perspective.resources %}
+                            <a href="{{ resource.url }}" class="btn btn-outline-secondary btn-sm" 
+                               {% if resource.url != '#' %}target="_blank"{% endif %}>
+                                <i data-feather="link"></i> {{ resource.label }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i data-feather="info"></i> Learning Path</h6>
+            </div>
+            <div class="card-body">
+                <ol class="small text-muted">
+                    <li>Work through lessons in order</li>
+                    <li>Complete quick checks and mini-games</li>
+                    <li>Submit your Creator Challenge</li>
+                    <li>Review others' work in Peer Review</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

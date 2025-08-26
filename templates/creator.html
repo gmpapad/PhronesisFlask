@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}{{ perspective.creator_challenge.title }} - Phronisis{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('perspective_detail', slug=perspective.slug) }}">{{ perspective.title }}</a></li>
+                <li class="breadcrumb-item active">Creator Challenge</li>
+            </ol>
+        </nav>
+
+        <div class="mb-4">
+            <h1>{{ perspective.creator_challenge.title }}</h1>
+            <p class="lead text-muted">{{ perspective.creator_challenge.instructions }}</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i data-feather="edit"></i> Submit Your Artifact</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" 
+                               placeholder="Give your work a descriptive title" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="body_text" class="form-label">Your Work</label>
+                        <textarea class="form-control" id="body_text" name="body_text" rows="8" 
+                                  placeholder="Share your thoughts, analysis, or creation here..." required></textarea>
+                        <div class="form-text">
+                            Take your time to think deeply and express your ideas clearly. 
+                            This will be reviewed by your peers.
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i data-feather="send"></i> Submit Artifact
+                        </button>
+                        <a href="{{ url_for('perspective_detail', slug=perspective.slug) }}" 
+                           class="btn btn-outline-secondary">
+                            <i data-feather="arrow-left"></i> Back
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0"><i data-feather="lightbulb"></i> Tips for Success</h6>
+            </div>
+            <div class="card-body">
+                <ul class="small text-muted">
+                    <li>Be specific and use examples</li>
+                    <li>Explain your reasoning clearly</li>
+                    <li>Consider different perspectives</li>
+                    <li>Use what you learned in the lessons</li>
+                    <li>Be open to feedback from peers</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i data-feather="users"></i> Peer Review Process</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted">
+                    After submitting, your work will enter the peer review queue. 
+                    Other learners will provide feedback on clarity, logic, and fairness. 
+                    You can also review others' work to practice your critical thinking skills.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{
+  "slug": "digital-media-literacy",
+  "title": "Digital Media Literacy",
+  "summary": "Spot manipulation, verify sources, recognize AI-generated content.",
+  "order": 2,
+  "lessons": [
+    {
+      "id": "signals-of-reliability",
+      "title": "Signals of Reliability",
+      "key_ideas": [
+        "Source transparency",
+        "Evidence and citations",
+        "Corrections and retractions policy",
+        "Understanding incentives and biases"
+      ],
+      "examples": [
+        "Opinion vs reporting side-by-side comparison",
+        "News site with a corrections page vs one without",
+        "Article with multiple sources vs single anonymous source",
+        "Sponsored content vs editorial content"
+      ],
+      "quick_checks": [
+        {
+          "question": "Which is a better first signal of reliability?",
+          "choices": [
+            "Has a professional-looking logo",
+            "Lists sources and has a corrections policy",
+            "Has lots of advertisements"
+          ],
+          "answer_index": 1,
+          "feedback": [
+            "Logos can be easily faked and don't indicate factual accuracy.",
+            "Correct — traceable evidence and accountability mechanisms matter most.",
+            "Advertisements say nothing about the quality of evidence or fact-checking."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Source Radar",
+        "prompt": "You see a news snippet that cites 'government officials' but doesn't name them or link to original documents. How would you rate its reliability?",
+        "options": ["Low", "Medium", "High"],
+        "correct_option": "Medium",
+        "explanation": "This shows some transparency (citing sources) but lacks full accountability (no names or links). It's not terrible, but not ideal either."
+      }
+    }
+  ],
+  "creator_challenge": {
+    "title": "Build Your Sharing Checklist",
+    "instructions": "Draft a 5-step checklist you'll use before sharing a headline or article on social media. Consider what you'll look for to verify reliability, check for bias, and avoid spreading misinformation. Submit your checklist as your artifact."
+  },
+  "resources": [
+    {"label": "Ground News", "url": "https://ground.news"},
+    {"label": "Snopes Fact Checking", "url": "https://snopes.com"},
+    {"label": "AllSides Media Bias Chart", "url": "https://www.allsides.com/media-bias/media-bias-chart"}
+  ]
+}

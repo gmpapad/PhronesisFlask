@@ -1,0 +1,236 @@
+Build a barebones Phronisis app in Flask that I can extend later by dropping JSON “Perspectives.” Follow this spec exactly.
+
+Project: Phronisis — Critical Thinking Learning App (MVP)
+
+Goal: Mobile-first web app with auth, a modular content system called Perspectives (modules), Lessons (key ideas, examples, quick checks, mini-game stubs), simple progress tracking, asynchronous Peer Review Studio, and lightweight analytics. I must be able to add new Perspectives later by dropping a JSON file into a folder (no code changes).
+
+Tech & Structure
+
+Stack: Python Flask + SQLite + SQLAlchemy, Jinja2 templates, PicoCSS via CDN, vanilla JS only (no heavy frameworks).
+
+Accessibility: semantic HTML, labels for inputs, high contrast, keyboard-friendly.
+
+Files/folders:
+
+app.py (Flask app, routes, config, models, blueprint OK)
+
+models.py (SQLAlchemy models) (or inline in app.py if simpler)
+
+/templates/ (Jinja pages)
+
+/static/ (css/js)
+
+/content/perspectives/ (JSON files, one per Perspective)
+
+seed.py (creates DB, seeds users and example content; idempotent)
+
+README.md
+
+.env (not committed)
+
+Environment & Config
+
+Use python-dotenv to load .env.
+
+Read:
+
+SECRET_KEY (required; safe default only for dev),
+
+ADMIN_CODE (for admin upload),
+
+DATABASE_URL (optional; default sqlite:///phronisis.db).
+
+Configure Flask SECRET_KEY from env.
+
+In README: show sample .env and note Replit “Secrets” usage.
+
+SECRET_KEY=change-me
+ADMIN_CODE=letmein
+DATABASE_URL=sqlite:///phronisis.db
+
+Auth
+
+Register/login/logout; protect all app pages after login.
+
+Password hashing: use werkzeug.security (generate_password_hash, check_password_hash).
+
+User(email UNIQUE, password_hash, display_name, is_admin BOOL, created_at)
+
+Data Models (SQLAlchemy)
+
+User(id, email, password_hash, display_name, is_admin, created_at)
+
+Progress(id, user_id→User, perspective_slug, lesson_id, status ENUM('not_started','started','completed'), score INT, updated_at)
+
+Artifact(id, user_id→User, perspective_slug, title, body_text, created_at) # Creator Challenges
+
+PeerReview(id, artifact_id→Artifact, reviewer_id→User, clarity INT, logic INT, fairness INT, comments TEXT, created_at)
+
+Event(id, user_id→User, type TEXT, perspective_slug, lesson_id, meta JSON, created_at)
+(analytics: lesson_started, lesson_completed, quiz_attempted, minigame_played, artifact_submitted, peer_review_completed)
+
+Content Model (JSON per Perspective)
+
+Store each Perspective as /content/perspectives/SLUG.json. Load all at runtime; list on Dashboard by order.
+
+Minimal schema (validate on admin upload):
+
+{
+  "slug": "digital-media-literacy",
+  "title": "Digital Media Literacy",
+  "summary": "Spot manipulation, verify sources, recognize AI-generated content.",
+  "order": 2,
+  "lessons": [
+    {
+      "id": "signals-of-reliability",
+      "title": "Signals of Reliability",
+      "key_ideas": ["Source transparency", "Evidence", "Corrections", "Incentives"],
+      "examples": [
+        "Opinion vs reporting side-by-side",
+        "Site with a corrections page vs one without"
+      ],
+      "quick_checks": [
+        {
+          "question": "Which is a better first signal of reliability?",
+          "choices": ["Has a logo", "Lists sources and corrections", "Lots of ads"],
+          "answer_index": 1,
+          "feedback": [
+            "Logos can be faked.",
+            "Correct — traceable evidence matters.",
+            "Ads say nothing about evidence."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Source Radar",
+        "prompt": "Rate the reliability of this snippet.",
+        "options": ["Low", "Medium", "High"],
+        "correct_option": "Medium",
+        "explanation": "Has sources but no author; some transparency."
+      }
+    }
+  ],
+  "creator_challenge": {
+    "title": "Build Your Sharing Checklist",
+    "instructions": "Draft a 5-step checklist you’ll use before sharing a headline. Submit it as your artifact."
+  },
+  "resources": [
+    {"label": "Ground News", "url": "#"},
+    {"label": "Snopes", "url": "#"}
+  ]
+}
+
+Routes & Pages
+
+/ → redirect to /login if not authed; else /dashboard
+
+/register, /login, /logout
+
+/dashboard (after login):
+
+List all Perspectives from /content/perspectives/*.json sorted by order with title, summary, progress % (derived from Progress).
+
+Show simple streak count (based on recent Events) and placeholder Paul–Elder “habit badges”.
+
+/perspectives/<slug>:
+
+List lessons (id, title), buttons: Start or Continue. Show completion status.
+
+/lesson/<slug>/<lesson_id>:
+
+Render title, key ideas (bullets), examples (cards).
+
+Quick check: single MCQ; POST to grade, store Event(quiz_attempted) and update Progress.
+
+Mini-game stub: choice-based only (no drag/drop). After choice, show explanation; store Event(minigame_played).
+
+Buttons: Mark Complete, Back.
+
+/creator/<slug>:
+
+Show the Perspective’s Creator Challenge. Title + textarea; POST saves Artifact and Event(artifact_submitted).
+
+/peer-review/queue:
+
+Serve next artifact not authored by current user. Rubric sliders (clarity/logic/fairness 1–5) + comments. POST saves PeerReview and Event(peer_review_completed). Include Report button (creates an Event only).
+
+/profile:
+
+Show progress by Perspective, submitted artifacts, received reviews.
+
+/admin/upload:
+
+Guard by is_admin or ADMIN_CODE from env. For ADMIN_CODE, provide a form to enter code; compare with hmac.compare_digest to avoid timing leaks.
+
+Accept JSON upload; minimally validate schema; save to /content/perspectives/.
+
+/debug/events (admin only): list recent analytics events.
+
+Mini-Game Constraints (No-Code Friendly)
+
+All mini-games are choice-based with instant feedback:
+
+“Spot the AI” (text stub): Human vs AI, then rationale.
+
+“Logic Builder” (valid recipe): choose which template fits an argument.
+
+“Update Meter”: slider input (store numeric in Event meta).
+
+Seed Content (idempotent)
+
+Users:
+
+Admin: admin@phronisis.test / admin123 (hashed; is_admin=True)
+
+Learner: learner@phronisis.test / learn123
+
+Perspectives (JSON files) — create if missing:
+
+understanding-arguments.json with one lesson “what-is-an-argument” (key ideas, 1 quick check, 1 choice mini-game “Spot the Argument” with Analyze/Like UI metaphor).
+
+digital-media-literacy.json using the schema above with lesson “signals-of-reliability”.
+
+Idempotent seed.py: can run multiple times:
+
+Create tables if not exist.
+
+Upsert by email for users.
+
+Write seed JSON files only if a file with the same slug doesn’t exist.
+
+UI & Nav
+
+Top nav after login: Dashboard | Perspectives | Peer Review | Profile | Logout
+
+Mobile-first cards; PicoCSS classes; simple icons/text tags (e.g., “Airtight” / “Well-supported” labels when shown in examples).
+
+Analytics (Events)
+
+On each action, create an Event with user_id, type, perspective_slug, lesson_id, meta (JSON), created_at:
+
+lesson_started, lesson_completed
+
+quiz_attempted (include correctness in meta)
+
+minigame_played (include game id & outcome)
+
+artifact_submitted
+
+peer_review_completed
+
+README
+
+Document:
+
+How to run locally and in Replit.
+
+How to configure .env (or Replit Secrets). Include sample block and never commit .env.
+
+How to add a new Perspective: drop a SLUG.json into /content/perspectives/ (using the schema), refresh Dashboard; no code changes required.
+
+How /admin/upload works (admin or ADMIN_CODE).
+
+Privacy note: store minimal PII (email). Allow users to delete their artifacts.
+
+Build this now with two seed Perspectives, working auth, JSON content loading, lesson rendering, quick check grading, choice-based mini-game stubs, artifact submission, peer review queue, admin JSON upload, events logging, and an idempotent seed.py.

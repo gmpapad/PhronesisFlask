@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}{{ lesson.title }} - {{ perspective.title }} - Phronisis{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('perspective_detail', slug=perspective.slug) }}">{{ perspective.title }}</a></li>
+                <li class="breadcrumb-item active">{{ lesson.title }}</li>
+            </ol>
+        </nav>
+
+        <div class="mb-4">
+            <h1>{{ lesson.title }}</h1>
+            <div class="d-flex gap-2 align-items-center">
+                {% if progress.status == 'completed' %}
+                    <span class="badge bg-success">
+                        <i data-feather="check-circle"></i> Completed
+                    </span>
+                {% elif progress.status == 'started' %}
+                    <span class="badge bg-warning">
+                        <i data-feather="play-circle"></i> In Progress
+                    </span>
+                {% endif %}
+                
+                {% if progress.score > 0 %}
+                    <span class="badge bg-info">Score: {{ progress.score }}%</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Key Ideas -->
+        {% if lesson.key_ideas %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i data-feather="key"></i> Key Ideas</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        {% for idea in lesson.key_ideas %}
+                            <li class="mb-2">
+                                <i data-feather="check" class="text-success me-2"></i>
+                                {{ idea }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Examples -->
+        {% if lesson.examples %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i data-feather="lightbulb"></i> Examples</h5>
+                </div>
+                <div class="card-body">
+                    {% for example in lesson.examples %}
+                        <div class="p-3 mb-2 bg-secondary bg-opacity-10 rounded">
+                            <p class="mb-0">{{ example }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Quick Check -->
+        {% if lesson.quick_checks %}
+            {% set quick_check = lesson.quick_checks[0] %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i data-feather="help-circle"></i> Quick Check</h5>
+                </div>
+                <div class="card-body">
+                    {% if quiz_result %}
+                        <div class="alert {% if quiz_result.correct %}alert-success{% else %}alert-danger{% endif %}">
+                            <h6>{% if quiz_result.correct %}Correct!{% else %}Not quite...{% endif %}</h6>
+                            {% if quiz_result.feedback and quiz_result.feedback|length > quiz_result.selected %}
+                                <p class="mb-0">{{ quiz_result.feedback[quiz_result.selected] }}</p>
+                            {% endif %}
+                        </div>
+                        
+                        <p class="fw-bold">{{ quick_check.question }}</p>
+                        {% for choice in quick_check.choices %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" disabled
+                                       {% if loop.index0 == quiz_result.selected %}checked{% endif %}>
+                                <label class="form-check-label 
+                                       {% if loop.index0 == quiz_result.correct_answer %}text-success fw-bold{% endif %}
+                                       {% if loop.index0 == quiz_result.selected and not quiz_result.correct %}text-danger{% endif %}">
+                                    {{ choice }}
+                                    {% if loop.index0 == quiz_result.correct_answer %}
+                                        <i data-feather="check-circle" class="text-success"></i>
+                                    {% endif %}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <form method="POST">
+                            <input type="hidden" name="action" value="submit_quiz">
+                            <p class="fw-bold">{{ quick_check.question }}</p>
+                            
+                            {% for choice in quick_check.choices %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="answer" 
+                                           value="{{ loop.index0 }}" id="choice{{ loop.index0 }}" required>
+                                    <label class="form-check-label" for="choice{{ loop.index0 }}">
+                                        {{ choice }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                            
+                            <button type="submit" class="btn btn-primary mt-3">
+                                <i data-feather="check"></i> Submit Answer
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Mini-Game -->
+        {% if lesson.minigame %}
+            {% set minigame = lesson.minigame %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i data-feather="gamepad-2"></i> {{ minigame.title }}</h5>
+                </div>
+                <div class="card-body">
+                    {% if minigame_result %}
+                        <div class="alert {% if minigame_result.correct %}alert-success{% else %}alert-info{% endif %}">
+                            <h6>{% if minigame_result.correct %}Great job!{% else %}Good try!{% endif %}</h6>
+                            <p class="mb-0">{{ minigame_result.explanation }}</p>
+                        </div>
+                        
+                        <p class="fw-bold">{{ minigame.prompt }}</p>
+                        {% for option in minigame.options %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" disabled
+                                       {% if option == minigame_result.selected %}checked{% endif %}>
+                                <label class="form-check-label 
+                                       {% if option == minigame.correct_option %}text-success fw-bold{% endif %}
+                                       {% if option == minigame_result.selected and not minigame_result.correct %}text-warning{% endif %}">
+                                    {{ option }}
+                                    {% if option == minigame.correct_option %}
+                                        <i data-feather="check-circle" class="text-success"></i>
+                                    {% endif %}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <form method="POST">
+                            <input type="hidden" name="action" value="submit_minigame">
+                            <p class="fw-bold">{{ minigame.prompt }}</p>
+                            
+                            {% for option in minigame.options %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="minigame_choice" 
+                                           value="{{ option }}" id="minigame{{ loop.index0 }}" required>
+                                    <label class="form-check-label" for="minigame{{ loop.index0 }}">
+                                        {{ option }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                            
+                            <button type="submit" class="btn btn-primary mt-3">
+                                <i data-feather="play"></i> Submit Choice
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Navigation -->
+        <div class="d-flex justify-content-between">
+            <a href="{{ url_for('perspective_detail', slug=perspective.slug) }}" 
+               class="btn btn-outline-secondary">
+                <i data-feather="arrow-left"></i> Back to Perspective
+            </a>
+            
+            {% if progress.status != 'completed' %}
+                <form method="POST" class="d-inline">
+                    <input type="hidden" name="action" value="mark_complete">
+                    <button type="submit" class="btn btn-success">
+                        <i data-feather="check-circle"></i> Mark Complete
+                    </button>
+                </form>
+            {% else %}
+                <span class="btn btn-success disabled">
+                    <i data-feather="check-circle"></i> Completed
+                </span>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0"><i data-feather="map"></i> Lesson Progress</h6>
+            </div>
+            <div class="card-body">
+                <div class="progress mb-3" style="height: 20px;">
+                    {% set progress_percent = 33 if progress.status == 'started' else (100 if progress.status == 'completed' else 0) %}
+                    <div class="progress-bar" role="progressbar" style="width: {{ progress_percent }}%">
+                        {{ progress_percent }}%
+                    </div>
+                </div>
+                
+                <div class="small text-muted">
+                    <div class="d-flex justify-content-between">
+                        <span>Started</span>
+                        <i data-feather="{% if progress.status in ['started', 'completed'] %}check{% else %}circle{% endif %}" 
+                           class="{% if progress.status in ['started', 'completed'] %}text-success{% endif %}"></i>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Engaged</span>
+                        <i data-feather="{% if quiz_result or minigame_result %}check{% else %}circle{% endif %}" 
+                           class="{% if quiz_result or minigame_result %}text-success{% endif %}"></i>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Completed</span>
+                        <i data-feather="{% if progress.status == 'completed' %}check{% else %}circle{% endif %}" 
+                           class="{% if progress.status == 'completed' %}text-success{% endif %}"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i data-feather="target"></i> Learning Tip</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-0">
+                    Try to connect these ideas to your own experiences. 
+                    The best learning happens when you can relate new concepts to what you already know.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

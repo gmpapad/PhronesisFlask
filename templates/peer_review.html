@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Peer Review Queue - Phronisis{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="mb-4">
+            <h1>Peer Review Queue</h1>
+            <p class="text-muted">Help your fellow learners by providing thoughtful feedback on their work.</p>
+        </div>
+
+        {% if artifact %}
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">{{ artifact.title }}</h5>
+                        <small class="text-muted">
+                            by {{ artifact.user.display_name }} • {{ artifact.created_at.strftime('%B %d, %Y') }}
+                        </small>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h6 class="text-muted">Artifact Content:</h6>
+                        <div class="p-3 bg-secondary bg-opacity-10 rounded">
+                            {{ artifact.body_text|nl2br|safe }}
+                        </div>
+                    </div>
+
+                    <form method="POST">
+                        <input type="hidden" name="action" value="submit_review">
+                        <input type="hidden" name="artifact_id" value="{{ artifact.id }}">
+                        
+                        <h6 class="mb-3">Your Review</h6>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="clarity" class="form-label">Clarity (1-5)</label>
+                                <select class="form-select" id="clarity" name="clarity" required>
+                                    <option value="">Rate clarity...</option>
+                                    <option value="1">1 - Very unclear</option>
+                                    <option value="2">2 - Mostly unclear</option>
+                                    <option value="3">3 - Somewhat clear</option>
+                                    <option value="4">4 - Mostly clear</option>
+                                    <option value="5">5 - Very clear</option>
+                                </select>
+                                <div class="form-text">How well did the author communicate their ideas?</div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label for="logic" class="form-label">Logic (1-5)</label>
+                                <select class="form-select" id="logic" name="logic" required>
+                                    <option value="">Rate logic...</option>
+                                    <option value="1">1 - Poor reasoning</option>
+                                    <option value="2">2 - Weak reasoning</option>
+                                    <option value="3">3 - Adequate reasoning</option>
+                                    <option value="4">4 - Strong reasoning</option>
+                                    <option value="5">5 - Excellent reasoning</option>
+                                </select>
+                                <div class="form-text">How sound was their reasoning and evidence?</div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label for="fairness" class="form-label">Fairness (1-5)</label>
+                                <select class="form-select" id="fairness" name="fairness" required>
+                                    <option value="">Rate fairness...</option>
+                                    <option value="1">1 - Very biased</option>
+                                    <option value="2">2 - Somewhat biased</option>
+                                    <option value="3">3 - Balanced</option>
+                                    <option value="4">4 - Very balanced</option>
+                                    <option value="5">5 - Exceptionally fair</option>
+                                </select>
+                                <div class="form-text">Did they consider multiple perspectives?</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="comments" class="form-label">Comments & Feedback</label>
+                            <textarea class="form-control" id="comments" name="comments" rows="4" 
+                                      placeholder="Provide constructive feedback to help the author improve..."></textarea>
+                            <div class="form-text">
+                                Be specific, kind, and helpful. What did they do well? What could be improved?
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i data-feather="send"></i> Submit Review
+                            </button>
+                            
+                            <button type="submit" name="action" value="report" 
+                                    class="btn btn-outline-warning" 
+                                    onclick="return confirm('Are you sure you want to report this content?')">
+                                <i data-feather="flag"></i> Report
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <i data-feather="inbox" style="width: 4rem; height: 4rem;" class="text-muted mb-3"></i>
+                <h4 class="text-muted">No artifacts to review</h4>
+                <p class="text-muted">
+                    Great job! You've reviewed all available artifacts. 
+                    Check back later for new submissions to review.
+                </p>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+                    <i data-feather="home"></i> Back to Dashboard
+                </a>
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0"><i data-feather="award"></i> Review Guidelines</h6>
+            </div>
+            <div class="card-body">
+                <ul class="small text-muted">
+                    <li><strong>Be constructive:</strong> Focus on helping the author improve</li>
+                    <li><strong>Be specific:</strong> Point to particular parts of their work</li>
+                    <li><strong>Be kind:</strong> Remember there's a person behind the work</li>
+                    <li><strong>Be honest:</strong> Give genuine feedback, not just praise</li>
+                    <li><strong>Be thoughtful:</strong> Take time to read carefully</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i data-feather="help-circle"></i> Rating Scale</h6>
+            </div>
+            <div class="card-body">
+                <div class="small text-muted">
+                    <p><strong>Clarity:</strong> How well they expressed their ideas</p>
+                    <p><strong>Logic:</strong> How sound their reasoning and evidence was</p>
+                    <p><strong>Fairness:</strong> How well they considered different viewpoints</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

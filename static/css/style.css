@@ -1,0 +1,166 @@
+/* Custom styles for Phronisis */
+
+/* Ensure proper spacing and mobile-first design */
+.container {
+    max-width: 1200px;
+}
+
+/* Custom badge styles */
+.badge {
+    font-size: 0.75em;
+}
+
+/* Progress bars */
+.progress {
+    background-color: var(--bs-gray-800);
+}
+
+.progress-bar {
+    background-color: var(--bs-primary);
+}
+
+/* Card enhancements */
+.card {
+    border: 1px solid var(--bs-gray-700);
+    background-color: var(--bs-gray-900);
+}
+
+.card-header {
+    background-color: var(--bs-gray-800);
+    border-bottom: 1px solid var(--bs-gray-700);
+}
+
+/* Form enhancements */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+/* Navigation enhancements */
+.navbar-brand {
+    font-weight: 600;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Button enhancements */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Alert enhancements */
+.alert {
+    border: none;
+}
+
+/* Learning content styles */
+.lesson-content {
+    line-height: 1.6;
+}
+
+.example-card {
+    background-color: var(--bs-gray-800);
+    border: 1px solid var(--bs-gray-700);
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Quiz and minigame styles */
+.form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.form-check-label {
+    padding-left: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .btn {
+        font-size: 0.875rem;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Accessibility enhancements */
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+/* High contrast for better readability */
+.text-muted {
+    color: var(--bs-gray-400) !important;
+}
+
+/* Custom spacing utilities */
+.gap-2 {
+    gap: 0.5rem !important;
+}
+
+.gap-3 {
+    gap: 1rem !important;
+}
+
+/* Table styles for debug view */
+.table-sm td,
+.table-sm th {
+    padding: 0.25rem 0.5rem;
+}
+
+/* Code block styling */
+pre {
+    background-color: var(--bs-gray-800);
+    border: 1px solid var(--bs-gray-700);
+    border-radius: 0.375rem;
+    padding: 1rem;
+    font-size: 0.875rem;
+    overflow-x: auto;
+}
+
+code {
+    background-color: var(--bs-gray-800);
+    color: var(--bs-info);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Icon sizing consistency */
+[data-feather] {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+/* Ensure proper line breaks in artifact content */
+.artifact-content {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}

@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Upload - Phronisis{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="mb-4">
+            <h1><i data-feather="upload"></i> Admin Content Upload</h1>
+            <p class="text-muted">Upload new Perspective JSON files to expand the learning content.</p>
+        </div>
+
+        {% if not authenticated %}
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Admin Authentication Required</h5>
+                </div>
+                <div class="card-body">
+                    {% if 'user_id' in session and user and user.is_admin %}
+                        <div class="alert alert-success">
+                            <i data-feather="check-circle"></i> You are logged in as an admin user.
+                        </div>
+                        <form method="POST">
+                            <input type="hidden" name="action" value="authenticate">
+                            <button type="submit" class="btn btn-primary">
+                                <i data-feather="unlock"></i> Access Admin Panel
+                            </button>
+                        </form>
+                    {% else %}
+                        <p>Enter the admin code to access the upload functionality:</p>
+                        <form method="POST">
+                            <input type="hidden" name="action" value="authenticate">
+                            <div class="mb-3">
+                                <label for="admin_code" class="form-label">Admin Code</label>
+                                <input type="password" class="form-control" id="admin_code" name="admin_code" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i data-feather="unlock"></i> Authenticate
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i data-feather="check-circle"></i> Admin access authenticated. You can now upload content.
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Upload Perspective JSON</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="action" value="upload">
+                        
+                        <div class="mb-3">
+                            <label for="json_file" class="form-label">Perspective JSON File</label>
+                            <input type="file" class="form-control" id="json_file" name="json_file" 
+                                   accept=".json" required>
+                            <div class="form-text">
+                                Upload a JSON file containing a complete Perspective definition.
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i data-feather="upload"></i> Upload Perspective
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h6 class="mb-0"><i data-feather="info"></i> JSON Schema Requirements</h6>
+                </div>
+                <div class="card-body">
+                    <p class="small text-muted">Your JSON file must include these required fields:</p>
+                    <ul class="small text-muted">
+                        <li><code>slug</code> - Unique identifier (lowercase, hyphens)</li>
+                        <li><code>title</code> - Display name for the perspective</li>
+                        <li><code>summary</code> - Brief description</li>
+                        <li><code>order</code> - Numeric ordering (lower numbers appear first)</li>
+                        <li><code>lessons</code> - Array of lesson objects</li>
+                    </ul>
+                    
+                    <details class="mt-3">
+                        <summary class="btn btn-outline-secondary btn-sm">View Example JSON Structure</summary>
+                        <pre class="mt-2 p-3 bg-secondary bg-opacity-10 rounded small"><code>{
+  "slug": "example-perspective",
+  "title": "Example Perspective",
+  "summary": "A sample perspective for demonstration.",
+  "order": 3,
+  "lessons": [
+    {
+      "id": "example-lesson",
+      "title": "Example Lesson",
+      "key_ideas": ["Idea 1", "Idea 2"],
+      "examples": ["Example 1", "Example 2"],
+      "quick_checks": [
+        {
+          "question": "Sample question?",
+          "choices": ["Option A", "Option B", "Option C"],
+          "answer_index": 1,
+          "feedback": ["Wrong", "Correct!", "Wrong"]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Sample Game",
+        "prompt": "Make a choice:",
+        "options": ["Choice 1", "Choice 2"],
+        "correct_option": "Choice 1",
+        "explanation": "Explanation here."
+      }
+    }
+  ],
+  "creator_challenge": {
+    "title": "Create Something",
+    "instructions": "Instructions for the challenge."
+  },
+  "resources": [
+    {"label": "Resource Name", "url": "https://example.com"}
+  ]
+}</code></pre>
+                    </details>
+                </div>
+            </div>
+
+            {% if user and user.is_admin %}
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h6 class="mb-0"><i data-feather="activity"></i> Admin Actions</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('debug_events') }}" class="btn btn-outline-secondary">
+                                <i data-feather="activity"></i> View Debug Events
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

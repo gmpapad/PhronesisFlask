@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.display_name }}'s Profile - Phronisis{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="mb-4">
+            <h1>{{ user.display_name }}'s Profile</h1>
+            <p class="text-muted">Member since {{ user.created_at.strftime('%B %Y') }}</p>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i data-feather="trending-up"></i> Learning Progress</h5>
+            </div>
+            <div class="card-body">
+                {% if progress_by_perspective %}
+                    {% for slug, data in progress_by_perspective.items() %}
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-medium">{{ data.title }}</span>
+                                <span class="text-muted">{{ data.progress }}%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: {{ data.progress }}%"
+                                     aria-valuenow="{{ data.progress }}" 
+                                     aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No progress data available yet. Start learning to see your progress here!</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Submitted Artifacts -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i data-feather="edit"></i> Your Artifacts</h5>
+            </div>
+            <div class="card-body">
+                {% if artifacts %}
+                    {% for artifact in artifacts %}
+                        <div class="border-bottom pb-3 mb-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6 class="mb-1">{{ artifact.title }}</h6>
+                                    <p class="text-muted small mb-1">
+                                        {{ artifact.perspective_slug|title|replace('-', ' ') }} • 
+                                        {{ artifact.created_at.strftime('%B %d, %Y') }}
+                                    </p>
+                                    <p class="text-muted small">{{ artifact.body_text[:150] }}{% if artifact.body_text|length > 150 %}...{% endif %}</p>
+                                </div>
+                                <span class="badge bg-secondary">
+                                    {{ artifact.peer_reviews|length }} reviews
+                                </span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">You haven't submitted any artifacts yet. Complete some lessons and try the Creator Challenges!</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Reviews Received -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i data-feather="message-circle"></i> Reviews Received</h5>
+            </div>
+            <div class="card-body">
+                {% if reviews_received %}
+                    {% for review in reviews_received %}
+                        <div class="border-bottom pb-3 mb-3">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-1">On: "{{ review.artifact.title }}"</h6>
+                                <small class="text-muted">{{ review.created_at.strftime('%B %d, %Y') }}</small>
+                            </div>
+                            
+                            <div class="row mb-2">
+                                <div class="col-4">
+                                    <span class="badge bg-info">Clarity: {{ review.clarity }}/5</span>
+                                </div>
+                                <div class="col-4">
+                                    <span class="badge bg-info">Logic: {{ review.logic }}/5</span>
+                                </div>
+                                <div class="col-4">
+                                    <span class="badge bg-info">Fairness: {{ review.fairness }}/5</span>
+                                </div>
+                            </div>
+                            
+                            {% if review.comments %}
+                                <div class="p-2 bg-secondary bg-opacity-10 rounded">
+                                    <small class="text-muted">{{ review.comments }}</small>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No reviews received yet. Submit some artifacts to get feedback from your peers!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0"><i data-feather="user"></i> Account Info</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Joined:</strong> {{ user.created_at.strftime('%B %d, %Y') }}</p>
+                {% if user.is_admin %}
+                    <span class="badge bg-warning">Admin</span>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i data-feather="activity"></i> Quick Stats</h6>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="border-end">
+                            <h4 class="text-primary">{{ artifacts|length }}</h4>
+                            <small class="text-muted">Artifacts</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-success">{{ reviews_received|length }}</h4>
+                        <small class="text-muted">Reviews</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i data-feather="target"></i> Next Steps</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-primary btn-sm">
+                        <i data-feather="book-open"></i> Continue Learning
+                    </a>
+                    <a href="{{ url_for('peer_review_queue') }}" class="btn btn-outline-secondary btn-sm">
+                        <i data-feather="users"></i> Review Others' Work
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

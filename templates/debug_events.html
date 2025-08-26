@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Debug Events - Phronosis{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h1><i data-feather="activity"></i> Debug Events</h1>
+    <p class="text-muted">Recent analytics events for debugging and monitoring.</p>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Recent Events (Last 100)</h5>
+    </div>
+    <div class="card-body">
+        {% if events %}
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>User</th>
+                            <th>Type</th>
+                            <th>Perspective</th>
+                            <th>Lesson</th>
+                            <th>Meta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in events %}
+                        <tr>
+                            <td class="small">{{ event.created_at.strftime('%m/%d %H:%M') }}</td>
+                            <td class="small">{{ event.user.display_name }}</td>
+                            <td>
+                                <span class="badge bg-{% if event.type == 'lesson_completed' %}success{% elif event.type.startswith('lesson') %}primary{% elif event.type.startswith('quiz') %}info{% elif event.type.startswith('minigame') %}warning{% else %}secondary{% endif %} small">
+                                    {{ event.type }}
+                                </span>
+                            </td>
+                            <td class="small">{{ event.perspective_slug or '-' }}</td>
+                            <td class="small">{{ event.lesson_id or '-' }}</td>
+                            <td class="small">
+                                {% if event.meta %}
+                                    <code>{{ event.meta[:50] }}{% if event.meta|length > 50 %}...{% endif %}</code>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted">No events recorded yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="mt-3">
+    <a href="{{ url_for('admin_upload') }}" class="btn btn-outline-secondary">
+        <i data-feather="arrow-left"></i> Back to Admin
+    </a>
+</div>
+{% endblock %}

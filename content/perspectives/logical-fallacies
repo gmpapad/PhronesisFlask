@@ -1,0 +1,376 @@
+{
+  "slug": "logical-fallacies",
+  "title": "Logical Fallacies",
+  "summary": "Spot, name, and neutralize common reasoning errors across five categories.",
+  "order": 3,
+  "lessons": [
+    {
+      "id": "person-and-diversion",
+      "title": "Category 1 — Person & Diversion",
+      "key_ideas": [
+        "Ad Hominem: attacking the person instead of the argument (abusive, circumstantial, tu quoque).",
+        "Straw Man: misrepresenting someone’s view to make it easier to attack.",
+        "Red Herring: introducing an irrelevant point to distract.",
+        "False Dilemma: presenting only two options when more exist."
+      ],
+      "examples": [
+        "Ad Hominem: “Don’t listen to her climate data—she’s not even a scientist.”",
+        "Straw Man: “You support reform, so you want lawlessness.”",
+        "Red Herring: “Why discuss school funding when the cafeteria pizza is terrible?”",
+        "False Dilemma: “Either ban phones entirely or accept chaos.”"
+      ],
+      "quick_checks": [
+        {
+          "question": "“Your policy idea is wrong because you were fired from your last job.” What’s the fallacy?",
+          "choices": ["Ad Hominem", "Straw Man", "Red Herring", "False Dilemma"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—attacks the person, not the reasons.",
+            "Not a misrepresentation of the argument.",
+            "It doesn’t distract with a new topic.",
+            "No forced two-choice framing here."
+          ]
+        },
+        {
+          "question": "“They say we need better traffic safety. Next they’ll demand we all walk to work!”",
+          "choices": ["Straw Man", "Red Herring", "Ad Hominem", "False Dilemma"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—distorts the original, more moderate claim.",
+            "It stays on topic, but misrepresents, not distracts.",
+            "No personal attack here.",
+            "Not forcing two choices."
+          ]
+        },
+        {
+          "question": "“Why worry about ocean pollution when we have potholes to fix?”",
+          "choices": ["False Dilemma", "Red Herring", "Ad Hominem", "Straw Man"],
+          "answer_index": 1,
+          "feedback": [
+            "Not forcing two options.",
+            "Correct—irrelevant distraction to change the subject.",
+            "No attack on the person.",
+            "No distortion of the claim."
+          ]
+        },
+        {
+          "question": "“Either we censor all harmful posts or our society collapses.”",
+          "choices": ["Red Herring", "Straw Man", "False Dilemma", "Ad Hominem"],
+          "answer_index": 2,
+          "feedback": [
+            "Still on the same topic.",
+            "Not a misrepresentation of an opponent’s view.",
+            "Correct—oversimplifies to two options.",
+            "No personal attack here."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Fallacy Swiper I",
+        "prompt": "Classify the snippet: “Don’t trust his budget plan—he cheated in college.”",
+        "options": ["Ad Hominem", "Straw Man", "Red Herring", "False Dilemma"],
+        "correct_option": "Ad Hominem",
+        "explanation": "Attacks character instead of addressing the plan’s content."
+      }
+    },
+    {
+      "id": "appeals-and-emotion",
+      "title": "Category 2 — Appeals & Emotion",
+      "key_ideas": [
+        "Appeal to Authority: citing authority as proof when expertise/relevance is weak.",
+        "Appeal to Ignorance: claiming something is true because it hasn’t been proven false (or vice versa).",
+        "Bandwagon: arguing something is true/good because it’s popular.",
+        "Appeal to Emotion: using fear/pity/anger as the main reason."
+      ],
+      "examples": [
+        "Authority: “A famous actor says this diet works, so it works.”",
+        "Ignorance: “No one proved aliens aren’t here; therefore, they are.”",
+        "Bandwagon: “Millions use it; it must be the best.”",
+        "Emotion: “Think of the children! Therefore pass this unrelated bill.”"
+      ],
+      "quick_checks": [
+        {
+          "question": "“A Nobel physicist recommends this crypto coin, so buy it.”",
+          "choices": ["Bandwagon", "Appeal to Authority", "Appeal to Emotion", "Appeal to Ignorance"],
+          "answer_index": 1,
+          "feedback": [
+            "Popularity wasn’t cited.",
+            "Correct—authority cited outside their domain.",
+            "Emotion isn’t the key here.",
+            "Not relying on lack of disproof."
+          ]
+        },
+        {
+          "question": "“No one has disproven this herbal cure; it must work.”",
+          "choices": ["Appeal to Ignorance", "Bandwagon", "Appeal to Emotion", "Appeal to Authority"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—treats lack of disproof as proof.",
+            "Not popularity.",
+            "No emotional lever used as the main reason.",
+            "Not an authority claim."
+          ]
+        },
+        {
+          "question": "“Everyone in my feed invests in it—don’t miss out.”",
+          "choices": ["Appeal to Emotion", "Appeal to Authority", "Bandwagon", "Appeal to Ignorance"],
+          "answer_index": 2,
+          "feedback": [
+            "Emotion isn’t the main reason here.",
+            "No expert cited.",
+            "Correct—popularity is used as justification.",
+            "Not about (lack of) evidence."
+          ]
+        },
+        {
+          "question": "“If you care about safety, you must support this unrelated policy.”",
+          "choices": ["Appeal to Emotion", "Appeal to Ignorance", "Bandwagon", "Appeal to Authority"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—leans on fear/concern instead of relevant reasons.",
+            "No lack-of-proof claim.",
+            "No popularity claim.",
+            "No expert claim."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Emotion or Evidence?",
+        "prompt": "“This app saved my life—therefore you must approve it.” What’s the fallacy?",
+        "options": ["Appeal to Emotion", "Appeal to Authority", "Bandwagon", "Appeal to Ignorance"],
+        "correct_option": "Appeal to Emotion",
+        "explanation": "Personal drama is not evidence of general effectiveness."
+      }
+    },
+    {
+      "id": "causal-confusions",
+      "title": "Category 3 — Causal Confusions",
+      "key_ideas": [
+        "Post Hoc: assuming A→B because B followed A.",
+        "Cum Hoc: assuming A→B because A and B occur together (correlation).",
+        "Slippery Slope: claiming small step → inevitable extreme without mechanism.",
+        "Correlation ≠ Causation: requires mechanism, timing, controls, or stronger designs."
+      ],
+      "examples": [
+        "Post Hoc: “I took vitamin C and my cold ended; vitamin C cured it.”",
+        "Cum Hoc: “Screen time and anxiety correlate; screens cause anxiety.”",
+        "Slippery Slope: “If we allow this minor change, chaos will follow.”"
+      ],
+      "quick_checks": [
+        {
+          "question": "“I wore my lucky socks and we won—socks caused the win.”",
+          "choices": ["Post Hoc", "Slippery Slope", "Cum Hoc", "No Fallacy"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—after this, therefore because of this.",
+            "No chain of escalating consequences claimed.",
+            "Not mere co-occurrence; it’s timing-based.",
+            "There is a fallacy."
+          ]
+        },
+        {
+          "question": "“Cities with more bike lanes have more coffee shops; bike lanes cause cafés.”",
+          "choices": ["Cum Hoc", "Post Hoc", "Slippery Slope", "No Fallacy"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—correlation doesn’t imply direction or causation.",
+            "Post hoc relies on sequence, not co-occurrence.",
+            "No chain claim.",
+            "There is a fallacy."
+          ]
+        },
+        {
+          "question": "“If we allow phone use at lunch, next we’ll have zero attention in class.”",
+          "choices": ["Post Hoc", "Cum Hoc", "Slippery Slope", "No Fallacy"],
+          "answer_index": 2,
+          "feedback": [
+            "Not a sequence claim here.",
+            "Not co-occurrence.",
+            "Correct—an extreme outcome is claimed without mechanism.",
+            "There is a fallacy."
+          ]
+        },
+        {
+          "question": "Best first step to test correlation vs causation?",
+          "choices": [
+            "Find a plausible mechanism or run a controlled study.",
+            "Ask if it feels true.",
+            "Check how viral the claim is."
+          ],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—mechanisms/controls help evaluate causality.",
+            "Feelings aren’t methods.",
+            "Virality isn’t validity."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Causal Detective",
+        "prompt": "Claim: “More ice cream → more drownings.” What’s most likely?",
+        "options": ["Ice cream causes drowning.", "A confounder like hot weather increases both.", "No relationship exists anywhere."],
+        "correct_option": "A confounder like hot weather increases both.",
+        "explanation": "A third factor can raise both variables; test with controls."
+      }
+    },
+    {
+      "id": "evidence-and-sampling",
+      "title": "Category 4 — Evidence & Sampling",
+      "key_ideas": [
+        "Hasty Generalization: generalizing from too small/unrepresentative a sample.",
+        "Cherry-Picking: selecting only supportive data, ignoring counter-evidence.",
+        "Biased Sample: sample excludes key groups or overrepresents others.",
+        "Anecdotal Evidence: vivid story used in place of representative data."
+      ],
+      "examples": [
+        "Hasty: “My two friends had side effects; the medicine is unsafe.”",
+        "Cherry-Picking: “This chart starts at 2019 to make the drop look huge.”",
+        "Biased Sample: “Only surveying fans of the brand.”",
+        "Anecdote: “One review said it failed, so the product is bad.”"
+      ],
+      "quick_checks": [
+        {
+          "question": "“I interviewed three attendees; everyone loved the conference!”",
+          "choices": ["Hasty Generalization", "Anecdotal Evidence", "Cherry-Picking", "Biased Sample"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—too small a sample to generalize.",
+            "Anecdotes can be part of hasty generalization, but the issue is sample size.",
+            "Not selective omission of data over time.",
+            "Sample may be biased too, but size is the key problem signaled."
+          ]
+        },
+        {
+          "question": "“This graph starts last month and shows a huge spike—ignore the prior year.”",
+          "choices": ["Cherry-Picking", "Biased Sample", "Anecdotal Evidence", "Hasty Generalization"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—selects a window to exaggerate the effect.",
+            "Sampling frame isn’t the stated issue.",
+            "Not a single story as proof.",
+            "Not primarily about sample size."
+          ]
+        },
+        {
+          "question": "“We surveyed only premium subscribers; satisfaction is 99%.”",
+          "choices": ["Biased Sample", "Hasty Generalization", "Cherry-Picking", "Anecdotal Evidence"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—sample excludes non-premium users; results won’t generalize.",
+            "Sample size may be fine; frame is biased.",
+            "Not selective omission across time/variables.",
+            "Not a single vivid story."
+          ]
+        },
+        {
+          "question": "“My uncle thrived on this diet, so it’s best for everyone.”",
+          "choices": ["Anecdotal Evidence", "Cherry-Picking", "Hasty Generalization", "No Fallacy"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—one story can’t stand in for representative evidence.",
+            "Could also be cherry-picking, but the core is anecdote-as-proof.",
+            "Hasty generalization often uses anecdotes; here the claim rests on one case.",
+            "There is a fallacy."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Study Smarts",
+        "prompt": "Which improves generalizability the most?",
+        "options": [
+          "Increase sample size and ensure it represents key groups.",
+          "Use only the happiest users—it’s efficient.",
+          "Rely on the CEO’s anecdote."
+        ],
+        "correct_option": "Increase sample size and ensure it represents key groups.",
+        "explanation": "Representative, adequately large samples strengthen inductive support."
+      }
+    },
+    {
+      "id": "ambiguity-and-framing",
+      "title": "Category 5 — Ambiguity & Framing",
+      "key_ideas": [
+        "Equivocation: using a key term in different senses within the same argument.",
+        "Amphiboly: syntactic/grammatical ambiguity leads to confusion.",
+        "Loaded Question: presupposes guilt/assumption (“Have you stopped…?”).",
+        "Persuasive Definition: smuggling values into a definition to bias judgment."
+      ],
+      "examples": [
+        "Equivocation: “Feathers are light; light can’t be dark; so feathers can’t be dark.”",
+        "Amphiboly: “Students who pass quickly get prizes.” (How quickly?)",
+        "Loaded Question: “Why are you hiding the data?” (Assumes hiding.)",
+        "Persuasive Def.: “Tax relief” frames taxes as a disease."
+      ],
+      "quick_checks": [
+        {
+          "question": "“This plan is ‘unpatriotic’ because it questions authority.”",
+          "choices": ["Equivocation", "Loaded Question", "Persuasive Definition", "Amphiboly"],
+          "answer_index": 2,
+          "feedback": [
+            "Not shifting meaning of the same term.",
+            "No presupposition in the question form.",
+            "Correct—definition of ‘patriotic’ is value-loaded to bias judgment.",
+            "Not grammar ambiguity."
+          ]
+        },
+        {
+          "question": "“Have you stopped manipulating the numbers?”",
+          "choices": ["Loaded Question", "Equivocation", "Amphiboly", "No Fallacy"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—presupposes wrongdoing regardless of answer.",
+            "Term meaning didn’t shift.",
+            "Not unclear grammar.",
+            "There is a fallacy."
+          ]
+        },
+        {
+          "question": "“Nothing is better than perfect peace. A sandwich is better than nothing. So a sandwich is better than perfect peace.”",
+          "choices": ["Equivocation", "Amphiboly", "Loaded Question", "No Fallacy"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—‘nothing’ is used in two senses, creating a misleading comparison.",
+            "Not grammar ambiguity.",
+            "No presupposing question.",
+            "There is a fallacy."
+          ]
+        },
+        {
+          "question": "“Visiting relatives can be boring.” (used to argue relatives are boring)",
+          "choices": ["Amphiboly", "Equivocation", "No Fallacy", "Loaded Question"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—structure is ambiguous (who is visiting whom?).",
+            "Not the same word in two meanings.",
+            "There is a fallacy if the ambiguity is exploited.",
+            "Not a presupposing question."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Define & Refine",
+        "prompt": "Pick the neutral rewrite: “This policy is censorship.”",
+        "options": [
+          "This policy is an attempt to silence dissenters.",
+          "This policy removes two categories of posts flagged as violent threats.",
+          "This policy is unpatriotic."
+        ],
+        "correct_option": "This policy removes two categories of posts flagged as violent threats.",
+        "explanation": "Defines specific actions without loaded language—clearer for evaluation."
+      }
+    }
+  ],
+  "creator_challenge": {
+    "title": "Steel-Man & Diagnose",
+    "instructions": "Find a real post or short article. 1) Steel-man the central claim in 3 sentences. 2) Identify any fallacy category present and justify in 2–3 sentences. 3) Provide a neutral rewrite that removes the fallacy."
+  },
+  "resources": [
+    { "label": "HKU Critical Thinking — Fallacies", "url": "https://philosophy.hku.hk/think/arg/whatlf.php" },
+    { "label": "YourLogicalFallacyIs", "url": "https://yourlogicalfallacyis.com/" }
+  ]
+}

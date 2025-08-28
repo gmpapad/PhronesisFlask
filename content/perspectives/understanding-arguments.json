@@ -1,55 +1,307 @@
 {
   "slug": "understanding-arguments",
   "title": "Understanding Arguments",
-  "summary": "Learn to identify, analyze, and construct logical arguments in everyday reasoning.",
+  "summary": "Recognize, classify, and evaluate everyday arguments—then improve them.",
   "order": 1,
   "lessons": [
     {
       "id": "what-is-an-argument",
       "title": "What is an Argument?",
       "key_ideas": [
-        "Arguments have premises and conclusions",
-        "Not all statements are arguments",
-        "Arguments aim to persuade through reasoning",
-        "Good arguments provide evidence for their claims"
+        "Argument = claim (conclusion) + reasons (premises) intended to persuade.",
+        "Conclusion vs premises: signal words like 'therefore/so' (conclusion) and 'because/since' (premises).",
+        "Not every statement or opinion is an argument—reasons must support a claim."
       ],
       "examples": [
-        "Argument: 'It's raining outside, so you should bring an umbrella.'",
-        "Not an argument: 'I love pizza.' (just a statement of preference)",
-        "Argument: 'Students who study regularly perform better on tests. You want good grades, so you should study regularly.'"
+        "Argument: \"We should add bike lanes because crash rates drop where lanes exist.\"",
+        "Opinion (not an argument): \"I hate bike lanes.\"",
+        "Argument: \"It’s sunny, so we should go to the park.\""
       ],
       "quick_checks": [
         {
           "question": "Which of these is an argument?",
           "choices": [
-            "The weather is nice today.",
-            "Since it's sunny, we should go to the park.",
-            "I really enjoy reading books."
+            "I really enjoy reading books.",
+            "Since it’s sunny, we should go to the park.",
+            "The weather is nice today."
           ],
           "answer_index": 1,
           "feedback": [
-            "This is just a statement about the weather, not an argument.",
-            "Correct! This gives a reason (sunny weather) for a conclusion (should go to park).",
-            "This is just a personal preference, not an argument."
+            "This is a preference, not an argument.",
+            "Correct—reason (sunny) supports a conclusion (go to the park).",
+            "A description, not an argument."
+          ]
+        },
+        {
+          "question": "Identify the conclusion: \"Crash rates drop where lanes exist, so we should add bike lanes.\"",
+          "choices": [
+            "Crash rates drop where lanes exist.",
+            "We should add bike lanes.",
+            "Bike lanes are controversial."
+          ],
+          "answer_index": 1,
+          "feedback": [
+            "That’s a premise (a reason).",
+            "Correct—this is the claim being argued for.",
+            "Not stated."
+          ]
+        },
+        {
+          "question": "Which word most often signals a premise?",
+          "choices": ["Therefore", "Because", "So"],
+          "answer_index": 1,
+          "feedback": [
+            "Often signals a conclusion.",
+            "Correct—'because' introduces a reason.",
+            "Often signals a conclusion."
           ]
         }
       ],
       "minigame": {
         "type": "choice",
         "title": "Spot the Argument",
-        "prompt": "Look at this social media post: 'Everyone should vote because democracy depends on participation.' Is this an argument?",
-        "options": ["Yes, it's an argument", "No, it's just an opinion"],
-        "correct_option": "Yes, it's an argument",
-        "explanation": "This is an argument because it provides a reason (democracy depends on participation) to support a conclusion (everyone should vote)."
+        "prompt": "Look at this post: \"Everyone should vote because democracy depends on participation.\" Is this an argument?",
+        "options": ["Yes — it gives a reason.", "No — it’s just an opinion."],
+        "correct_option": "Yes — it gives a reason.",
+        "explanation": "The reason 'democracy depends on participation' supports the conclusion 'everyone should vote'."
+      }
+    },
+    {
+      "id": "two-roads-deductive-vs-inductive",
+      "title": "Two Roads—Deductive vs Inductive",
+      "key_ideas": [
+        "Deductive: if premises are true, the conclusion must be true (aims at validity).",
+        "Inductive: if premises are true, the conclusion is likely true (degrees of support).",
+        "Why validity matters: deductive evaluation = validity; a sound argument is valid with true premises."
+      ],
+      "examples": [
+        "Deductive: \"All metals conduct. Copper is a metal. Therefore, copper conducts.\"",
+        "Inductive: \"Every winter here has been rainy. This winter will likely be rainy.\""
+      ],
+      "quick_checks": [
+        {
+          "question": "Classify: \"All mammals are warm-blooded. Whales are mammals. So whales are warm-blooded.\"",
+          "choices": ["Deductive", "Inductive", "Neither"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—valid form if premises are true.",
+            "Inductive argues likelihood; this one claims certainty.",
+            "It is an argument."
+          ]
+        },
+        {
+          "question": "Classify: \"The last 5 buses arrived late, so today’s bus will probably be late.\"",
+          "choices": ["Deductive", "Inductive", "Neither"],
+          "answer_index": 1,
+          "feedback": [
+            "Deduction claims must-be-true, not 'probably'.",
+            "Correct—generalizing from repeated observations.",
+            "It is an argument."
+          ]
+        },
+        {
+          "question": "Which statement best describes 'soundness'?",
+          "choices": [
+            "The conclusion is popular.",
+            "The argument is valid and the premises are true.",
+            "The argument is short and clear."
+          ],
+          "answer_index": 1,
+          "feedback": [
+            "Popularity doesn’t determine soundness.",
+            "Correct—sound = valid + true premises.",
+            "Clarity is good but not soundness."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Classifier Swipe",
+        "prompt": "Is the following argument deducTIVE or inducTIVE?\n\"Every time I water the plant it perks up; watering probably helps.\"",
+        "options": ["Deductive", "Inductive"],
+        "correct_option": "Inductive",
+        "explanation": "Uses past observations to support a probable conclusion."
+      }
+    },
+    {
+      "id": "evaluating-arguments",
+      "title": "Evaluating Arguments",
+      "key_ideas": [
+        "Deductive: validity (structure) & soundness (valid + true premises).",
+        "Inductive: strength (how much support) & cogency (strong + true premises).",
+        "Defeasibility: new evidence can weaken a previously strong inductive argument."
+      ],
+      "examples": [
+        "Valid but unsound: \"All birds can fly. Penguins are birds. So penguins can fly.\" (false premise)",
+        "Strong but defeasible: \"Most emails I get from this domain are scams; this new one might be a scam.\" (could be a legit email)"
+      ],
+      "quick_checks": [
+        {
+          "question": "Label: \"All squares are rectangles; all rectangles have four sides; therefore all squares have four sides.\"",
+          "choices": ["Valid", "Invalid", "Strong (inductive)"],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—deductively valid.",
+            "Structure is fine; not invalid.",
+            "This is deductive, not inductive."
+          ]
+        },
+        {
+          "question": "Label: \"It rained the last 8 days; it will rain tomorrow.\"",
+          "choices": ["Valid", "Invalid", "Strong (inductive)"],
+          "answer_index": 2,
+          "feedback": [
+            "Deductive validity claims certainty; this is probabilistic.",
+            "Not the right label—this is an inductive argument.",
+            "Correct—strong pattern but defeasible."
+          ]
+        },
+        {
+          "question": "Which edit strengthens this argument: \"Electric cars are better because they’re modern.\"",
+          "choices": [
+            "Remove the word 'modern'.",
+            "Add evidence on emissions and operating cost.",
+            "Say it louder."
+          ],
+          "answer_index": 1,
+          "feedback": [
+            "Helps clarity, not support.",
+            "Correct—relevant evidence increases support.",
+            "Volume isn’t a reason."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Repair the Argument",
+        "prompt": "Pick the premise that best strengthens the claim: \"We should open later on Mondays.\"",
+        "options": [
+            "Mondays feel slower.",
+            "Customer data show 70% fewer visits before 10am on Mondays.",
+            "I prefer to sleep in."
+        ],
+        "correct_option": "Customer data show 70% fewer visits before 10am on Mondays.",
+        "explanation": "Decision-relevant evidence makes the argument more cogent."
+      }
+    },
+    {
+      "id": "common-misunderstandings",
+      "title": "Common Misunderstandings",
+      "key_ideas": [
+        "Evidence ≠ certainty: strong support still allows exceptions.",
+        "Opinion ≠ argument: reasons must support a claim.",
+        "Correlation ≠ causation: look for mechanisms and confounders."
+      ],
+      "examples": [
+        "\"You can’t prove this helps everyone, so it helps no one.\" (fallacy of perfection)",
+        "\"Crime rose and ice cream sales rose—ice cream doesn’t cause crime.\" (confounder: temperature)"
+      ],
+      "quick_checks": [
+        {
+          "question": "Fix the reasoning: \"You can’t prove a seatbelt saves every life, so seatbelts are pointless.\"",
+          "choices": [
+            "Ask for a perfect guarantee.",
+            "Ask for overall risk reduction evidence.",
+            "Say it’s all opinion."
+          ],
+          "answer_index": 1,
+          "feedback": [
+            "Perfection isn’t required for good policy.",
+            "Correct—look for aggregate outcomes and mechanisms.",
+            "We need reasons, not just opinions."
+          ]
+        },
+        {
+          "question": "Which best addresses correlation ≠ causation?",
+          "choices": [
+            "Find a plausible mechanism or run a controlled test.",
+            "Check if the correlation is surprising.",
+            "Ask if people like the result."
+          ],
+          "answer_index": 0,
+          "feedback": [
+            "Correct—mechanisms/controls help infer causation.",
+            "Surprise doesn’t establish causation.",
+            "Popularity is irrelevant to causation."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "Myth-Buster",
+        "prompt": "Claim: \"This vitamin cured my cold; vitamins cure colds.\" What’s the best first move?",
+        "options": [
+          "Check randomized trial evidence.",
+          "Share the story—it’s convincing.",
+          "Assume placebo effects aren’t real."
+        ],
+        "correct_option": "Check randomized trial evidence.",
+        "explanation": "Controlled evidence helps separate correlation from causation."
+      }
+    },
+    {
+      "id": "arguments-in-context",
+      "title": "Arguments in Context",
+      "key_ideas": [
+        "Assumptions, definitions, and values shape arguments.",
+        "Emotions can add (motivate) or replace (distort) reasons.",
+        "Clarity first: define terms; make claims testable."
+      ],
+      "examples": [
+        "Loaded definition: calling a tax a 'penalty' frames values.",
+        "Assumption: \"Remote work hurts culture\"—what counts as 'culture'?"
+      ],
+      "quick_checks": [
+        {
+          "question": "Which rewrite improves clarity?\nOriginal: \"This policy destroys freedom.\"",
+          "choices": [
+            "This policy is bad.",
+            "This policy restricts protest permits after 10pm without appeal.",
+            "Everyone hates this policy."
+          ],
+          "answer_index": 1,
+          "feedback": [
+            "Still vague.",
+            "Correct—defines a concrete, testable claim.",
+            "Popularity isn’t clarity."
+          ]
+        },
+        {
+          "question": "Spot the hidden assumption: \"Ban smartphones in class to improve learning.\"",
+          "choices": [
+            "Phones sometimes distract.",
+            "All learning problems are caused by phones.",
+            "Teachers use phones."
+          ],
+          "answer_index": 1,
+          "feedback": [
+            "That can be true without justifying a ban.",
+            "Correct—this over-assumes causation; look for evidence.",
+            "Irrelevant."
+          ]
+        }
+      ],
+      "minigame": {
+        "type": "choice",
+        "title": "X-Ray the Claim",
+        "prompt": "Which assumption most likely underlies: \"We should censor posts to reduce harm\"?",
+        "options": [
+          "All harmful posts are easy to identify.",
+          "Some content labeled 'harmful' may be context-dependent.",
+          "Only governments can censor."
+        ],
+        "correct_option": "All harmful posts are easy to identify.",
+        "explanation": "Policies often assume detection is easy; testing that assumption changes the conclusion."
       }
     }
   ],
   "creator_challenge": {
-    "title": "Build Your Argument Detector",
-    "instructions": "Think of a recent conversation or social media post where someone was trying to convince you of something. Write a short analysis identifying: 1) What they wanted you to believe (conclusion), 2) What reasons they gave (premises), and 3) Whether you found their reasoning convincing and why."
+    "title": "Argument Map & Rewrite",
+    "instructions": "Find a recent post/article. 1) Extract the conclusion and premises. 2) List any assumptions/definitions. 3) Rewrite the claim for clarity and testability. Submit your map and rewrite."
   },
   "resources": [
-    {"label": "Stanford Encyclopedia: Argument", "url": "https://plato.stanford.edu/entries/argument/"},
-    {"label": "Critical Thinking Web", "url": "https://www.criticalthinking.org/"}
+    { "label": "Stanford Encyclopedia (Argument)", "url": "https://plato.stanford.edu/entries/argument/" },
+    { "label": "HKU Critical Thinking", "url": "https://philosophy.hku.hk/think/" }
   ]
 }
+

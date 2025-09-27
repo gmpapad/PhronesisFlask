@@ -53,6 +53,7 @@ def load_perspectives():
         return perspectives
     
     for json_file in content_dir.glob("*.json"):
+        print(json_file)
         try:
             with open(json_file, 'r') as f:
                 perspective = json.load(f)
